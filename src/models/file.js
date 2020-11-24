@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 module.exports = mongoose.model(
   'file',
   mongoose.Schema({
-    filename: [String],
+    filenames: [String],
+    urls: [String],
     description: String,
-    url: String,
   })
 );
