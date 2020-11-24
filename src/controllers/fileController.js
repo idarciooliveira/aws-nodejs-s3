@@ -1,8 +1,8 @@
-const imageUtl = require('../helpers/imageUtil');
 const fileModel = require('../models/file');
 
 module.exports = {
   async create(req, res) {
+    console.log('started');
     const { description } = req.body;
 
     if (!req.files || !description)
@@ -10,29 +10,28 @@ module.exports = {
 
     let images = [];
 
+    console.log('pushed');
     req.files.forEach((image) => {
-      let uploadedImage = imageUtl.uploadImage(image);
+      let uploadedImage = image.location;
       images.push(uploadedImage);
     });
 
+    console.log('create model');
     const newUploadedFile = new fileModel({
       filename: images,
       description,
-      url: undefined,
     });
 
+    console.log('saving model');
     await newUploadedFile.save();
 
-    res.json({ newUploadedFile });
+    console.log('send json');
+    return res.json(newUploadedFile);
   },
 
   async remove(req, res) {
     const file = await fileModel.findById(req.params.id);
     if (!file) return res.status(400).send({ message: 'File not found' });
-
-    file.filename.forEach((image) => {
-      imageUtl.deleteImage(image);
-    });
 
     res.send();
   },

@@ -1,17 +1,3 @@
-/*
-  Author: Idarcio Oliveira 05/04/2020
-  Contem funcoes para trabalhar com imagens:
-  - updateImage: excluir a imagem antiga e adiciona uma nova
-        recebe a o nome da imagem antiga, e a nova imagem (req.file)
-
-  - uploadImage: adiciona uma imagem ao diretorio do servidor
-        recebe a uma imagem (req.file) e retorna o nome da imagem no diretorio onde foi salva
-
-  - deleteImage: exclui uma imagem no diretorio
-        recebe a o nome da imagem e excluir no diretorio
-
-*/
-
 const fs = require('fs');
 const path = require('path');
 
@@ -50,7 +36,7 @@ function uploadImage(file) {
 function deleteImage(imageName) {
   if (imageName) {
     fs.unlink(
-      path.resolve(__dirname, '..', '..', 'upload/' + imageName),
+      path.resolve(__dirname, '..', '..', 'tmp', 'uploads/' + imageName),
       (err) => {
         if (err) return err;
       }

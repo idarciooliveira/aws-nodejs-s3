@@ -1,6 +1,6 @@
 const app = require('./server');
 require('./database');
 
-app.listen(app.get('PORT'), () => {
-  console.log('Server Started');
+app.listen(app.get('port'), () => {
+  console.log('Server Started at ' + app.get('port'));
 });
